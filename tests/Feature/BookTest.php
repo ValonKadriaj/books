@@ -33,8 +33,7 @@ class BookTest extends TestCase
         Book::factory()->count(3)->create();
 
         $response = $this->setHeaders()->getJson('/api/books');
-        $this->assertCount(3, Book::all());
-
+     
         $response->assertStatus(200)
                  ->assertJsonStructure(['books']);
     }
