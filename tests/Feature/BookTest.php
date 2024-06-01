@@ -33,6 +33,7 @@ class BookTest extends TestCase
         Book::factory()->count(3)->create();
 
         $response = $this->setHeaders()->getJson('/api/books');
+        $this->assertCount(3, Book::all());
 
         $response->assertStatus(200)
                  ->assertJsonStructure(['books']);
@@ -96,7 +97,8 @@ class BookTest extends TestCase
 
         $response = $this->setHeaders()
                          ->deleteJson("/api/books/{$book->id}");
-
+        $this->assertCount(0, Book::all());
+         
         $response->assertStatus(200)
                  ->assertJson(['success' => 'Book has been deleted successfully.']);
     }
